@@ -1,0 +1,43 @@
+{% extends "skl.html" %}
+{% block title %}Data of Property{% endblock %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'table.css' %}">
+{% endblock %}
+{% block body %}
+<!-- your_template.html -->
+<div class="filter-form">
+  <form method="post" action="{% url 'filter_properties' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Filter">
+  </form>
+</div>
+
+  <table>
+      <thead class="static">
+        <tr>
+          <th>Property Name</th>
+          <th>Property Cost</th>
+          <th>Property Type</th>
+          <th>Property Area</th>
+          <th>Property Locality</th>
+          <th>Property City</th>
+          <th>Individual Property Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for property in data %}
+          <tr>
+            <td>{{ property.PropertyName }}</td>
+            <td>{{ property.PropertyCost }}</td>
+            <td>{{ property.PropertyType }}</td>
+            <td>{{ property.PropertyArea }}</td>
+            <td>{{ property.propertyLocality }}</td>
+            <td>{{ property.propertyCity }}</td>
+            <td><a href="{{ property.IndividualPropertyLink }}">check it</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
